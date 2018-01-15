@@ -40,8 +40,29 @@
         from tb_user
     </select>
 
+    <select id="selectAllReturnCursor" resultMap="BaseResultMap" statementType="PREPARED" resultSetType="FORWARD_ONLY"
+    resultOrdered="true">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+    </select>
+
+    <select id="selectAllReturnMap" resultType="hashmap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+    </select>
+
     <select id="selectWithSql" resultMap="BaseResultMap" parameterType="java.lang.String">
         ${sql}
+    </select>
+
+    <select id="selectWithParameter" resultMap="BaseResultMap"
+            parameterType="net.lddhappy.data.model.parameter.TbUserQueryParameter">
+        select
+        <include refid="Base_Column_List"/>
+        from ${tableName}
+        where `ID` = #{userID,jdbcType=INTEGER}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

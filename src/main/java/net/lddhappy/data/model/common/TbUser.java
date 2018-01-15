@@ -192,4 +192,29 @@ public class TbUser {
     public void setUserEnable(Boolean userEnable) {
         this.userEnable = userEnable;
     }
+
+    @Override
+    public String toString() {
+        return "TbUser{" +
+                "ID=" + ID +
+                ", account='" + account + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", company='" + company + '\'' +
+                ", department='" + department + '\'' +
+                ", position='" + position + '\'' +
+                ", email='" + email + '\'' +
+                ", cellPhone='" + cellPhone + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", isOnLine=" + isOnLine +
+                ", lastOnLine=" + lastOnLine +
+                ", isAdmin=" + isAdmin +
+                ", allowAccessType=" + allowAccessType +
+                ", companyID=" + companyID +
+                ", headPhotoPath='" + headPhotoPath + '\'' +
+                ", warnLevel=" + warnLevel +
+                ", userEnable=" + userEnable +
+                '}';
+    }
 }

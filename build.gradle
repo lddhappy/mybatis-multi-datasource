@@ -32,5 +32,6 @@ dependencies {
 	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.1'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.45'
 	compile group: 'com.alibaba', name: 'druid', version: '1.1.6'
+	compile group: 'org.springframework.batch', name: 'spring-batch-infrastructure', version: '3.0.7.RELEASE'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

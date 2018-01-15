@@ -1,7 +1,9 @@
 package net.lddhappy.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.batch.MyBatisCursorItemReader;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +62,18 @@ public class CommonDbBean {
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("commonSqlSessionFactoryBean");
         mapperScannerConfigurer.setBasePackage("net.lddhappy.data.mapper.common");
         return mapperScannerConfigurer;
+    }
+
+    @Bean
+    public MyBatisCursorItemReader commonMyBatisCursorItemReader(@Autowired @Qualifier("commonSqlSessionFactoryBean") SqlSessionFactoryBean sqlSessionFactoryBean) {
+        try {
+            MyBatisCursorItemReader itemReader = new MyBatisCursorItemReader();
+            itemReader.setSqlSessionFactory(sqlSessionFactoryBean.getObject());
+            itemReader.setQueryId("net.lddhappy.data.mapper.common.TbUserMapper.selectAllReturnCursor");
+            return itemReader;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }
