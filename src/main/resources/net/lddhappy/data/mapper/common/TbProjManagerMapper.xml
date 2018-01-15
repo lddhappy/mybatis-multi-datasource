@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lddhappy.data.mapper.common.TbProjManagerMapper">
+  <resultMap id="BaseResultMap" type="net.lddhappy.data.model.common.TbProjManager">
+    <id column="ID" jdbcType="INTEGER" property="ID" />
+    <result column="UID" jdbcType="INTEGER" property="UID" />
+    <result column="ProjID" jdbcType="INTEGER" property="projID" />
+    <result column="PowerID" jdbcType="INTEGER" property="powerID" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    `ID`, `UID`, `ProjID`, `PowerID`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_proj_manager
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_proj_manager
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="net.lddhappy.data.model.common.TbProjManager">
+    insert into tb_proj_manager (`ID`, `UID`, `ProjID`, 
+      `PowerID`)
+    values (#{ID,jdbcType=INTEGER}, #{UID,jdbcType=INTEGER}, #{projID,jdbcType=INTEGER}, 
+      #{powerID,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.lddhappy.data.model.common.TbProjManager">
+    insert into tb_proj_manager
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        `ID`,
+      </if>
+      <if test="UID != null">
+        `UID`,
+      </if>
+      <if test="projID != null">
+        `ProjID`,
+      </if>
+      <if test="powerID != null">
+        `PowerID`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ID != null">
+        #{ID,jdbcType=INTEGER},
+      </if>
+      <if test="UID != null">
+        #{UID,jdbcType=INTEGER},
+      </if>
+      <if test="projID != null">
+        #{projID,jdbcType=INTEGER},
+      </if>
+      <if test="powerID != null">
+        #{powerID,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.common.TbProjManager">
+    update tb_proj_manager
+    <set>
+      <if test="UID != null">
+        `UID` = #{UID,jdbcType=INTEGER},
+      </if>
+      <if test="projID != null">
+        `ProjID` = #{projID,jdbcType=INTEGER},
+      </if>
+      <if test="powerID != null">
+        `PowerID` = #{powerID,jdbcType=INTEGER},
+      </if>
+    </set>
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.common.TbProjManager">
+    update tb_proj_manager
+    set `UID` = #{UID,jdbcType=INTEGER},
+      `ProjID` = #{projID,jdbcType=INTEGER},
+      `PowerID` = #{powerID,jdbcType=INTEGER}
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

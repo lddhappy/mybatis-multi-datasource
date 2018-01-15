@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lddhappy.data.mapper.common.TbUserMapper">
+    <resultMap id="BaseResultMap" type="net.lddhappy.data.model.common.TbUser">
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="Account" jdbcType="VARCHAR" property="account"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Password" jdbcType="VARCHAR" property="password"/>
+        <result column="Company" jdbcType="VARCHAR" property="company"/>
+        <result column="Department" jdbcType="VARCHAR" property="department"/>
+        <result column="Position" jdbcType="VARCHAR" property="position"/>
+        <result column="Email" jdbcType="VARCHAR" property="email"/>
+        <result column="CellPhone" jdbcType="VARCHAR" property="cellPhone"/>
+        <result column="Phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="Address" jdbcType="VARCHAR" property="address"/>
+        <result column="IsOnLine" jdbcType="BIT" property="isOnLine"/>
+        <result column="LastOnLine" jdbcType="TIMESTAMP" property="lastOnLine"/>
+        <result column="IsAdmin" jdbcType="BIT" property="isAdmin"/>
+        <result column="AllowAccessType" jdbcType="INTEGER" property="allowAccessType"/>
+        <result column="CompanyID" jdbcType="INTEGER" property="companyID"/>
+        <result column="HeadPhotoPath" jdbcType="VARCHAR" property="headPhotoPath"/>
+        <result column="WarnLevel" jdbcType="INTEGER" property="warnLevel"/>
+        <result column="UserEnable" jdbcType="BIT" property="userEnable"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    `ID`, `Account`, `Name`, `Password`, `Company`, `Department`, `Position`, `Email`, 
+    `CellPhone`, `Phone`, `Address`, `IsOnLine`, `LastOnLine`, `IsAdmin`, `AllowAccessType`, 
+    `CompanyID`, `HeadPhotoPath`, `WarnLevel`, `UserEnable`
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+    </select>
+
+    <select id="selectWithSql" resultMap="BaseResultMap" parameterType="java.lang.String">
+        ${sql}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_user
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="net.lddhappy.data.model.common.TbUser">
+    insert into tb_user (`ID`, `Account`, `Name`, 
+      `Password`, `Company`, `Department`, 
+      `Position`, `Email`, `CellPhone`, 
+      `Phone`, `Address`, `IsOnLine`, 
+      `LastOnLine`, `IsAdmin`, `AllowAccessType`, 
+      `CompanyID`, `HeadPhotoPath`, `WarnLevel`, 
+      `UserEnable`)
+    values (#{ID,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{cellPhone,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isOnLine,jdbcType=BIT}, 
+      #{lastOnLine,jdbcType=TIMESTAMP}, #{isAdmin,jdbcType=BIT}, #{allowAccessType,jdbcType=INTEGER}, 
+      #{companyID,jdbcType=INTEGER}, #{headPhotoPath,jdbcType=VARCHAR}, #{warnLevel,jdbcType=INTEGER}, 
+      #{userEnable,jdbcType=BIT})
+  </insert>
+    <insert id="insertSelective" parameterType="net.lddhappy.data.model.common.TbUser">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                `ID`,
+            </if>
+            <if test="account != null">
+                `Account`,
+            </if>
+            <if test="name != null">
+                `Name`,
+            </if>
+            <if test="password != null">
+                `Password`,
+            </if>
+            <if test="company != null">
+                `Company`,
+            </if>
+            <if test="department != null">
+                `Department`,
+            </if>
+            <if test="position != null">
+                `Position`,
+            </if>
+            <if test="email != null">
+                `Email`,
+            </if>
+            <if test="cellPhone != null">
+                `CellPhone`,
+            </if>
+            <if test="phone != null">
+                `Phone`,
+            </if>
+            <if test="address != null">
+                `Address`,
+            </if>
+            <if test="isOnLine != null">
+                `IsOnLine`,
+            </if>
+            <if test="lastOnLine != null">
+                `LastOnLine`,
+            </if>
+            <if test="isAdmin != null">
+                `IsAdmin`,
+            </if>
+            <if test="allowAccessType != null">
+                `AllowAccessType`,
+            </if>
+            <if test="companyID != null">
+                `CompanyID`,
+            </if>
+            <if test="headPhotoPath != null">
+                `HeadPhotoPath`,
+            </if>
+            <if test="warnLevel != null">
+                `WarnLevel`,
+            </if>
+            <if test="userEnable != null">
+                `UserEnable`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                #{ID,jdbcType=INTEGER},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="department != null">
+                #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="cellPhone != null">
+                #{cellPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isOnLine != null">
+                #{isOnLine,jdbcType=BIT},
+            </if>
+            <if test="lastOnLine != null">
+                #{lastOnLine,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isAdmin != null">
+                #{isAdmin,jdbcType=BIT},
+            </if>
+            <if test="allowAccessType != null">
+                #{allowAccessType,jdbcType=INTEGER},
+            </if>
+            <if test="companyID != null">
+                #{companyID,jdbcType=INTEGER},
+            </if>
+            <if test="headPhotoPath != null">
+                #{headPhotoPath,jdbcType=VARCHAR},
+            </if>
+            <if test="warnLevel != null">
+                #{warnLevel,jdbcType=INTEGER},
+            </if>
+            <if test="userEnable != null">
+                #{userEnable,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.common.TbUser">
+        update tb_user
+        <set>
+            <if test="account != null">
+                `Account` = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                `Name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `Password` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="company != null">
+                `Company` = #{company,jdbcType=VARCHAR},
+            </if>
+            <if test="department != null">
+                `Department` = #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                `Position` = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                `Email` = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="cellPhone != null">
+                `CellPhone` = #{cellPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                `Phone` = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                `Address` = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isOnLine != null">
+                `IsOnLine` = #{isOnLine,jdbcType=BIT},
+            </if>
+            <if test="lastOnLine != null">
+                `LastOnLine` = #{lastOnLine,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isAdmin != null">
+                `IsAdmin` = #{isAdmin,jdbcType=BIT},
+            </if>
+            <if test="allowAccessType != null">
+                `AllowAccessType` = #{allowAccessType,jdbcType=INTEGER},
+            </if>
+            <if test="companyID != null">
+                `CompanyID` = #{companyID,jdbcType=INTEGER},
+            </if>
+            <if test="headPhotoPath != null">
+                `HeadPhotoPath` = #{headPhotoPath,jdbcType=VARCHAR},
+            </if>
+            <if test="warnLevel != null">
+                `WarnLevel` = #{warnLevel,jdbcType=INTEGER},
+            </if>
+            <if test="userEnable != null">
+                `UserEnable` = #{userEnable,jdbcType=BIT},
+            </if>
+        </set>
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.common.TbUser">
+    update tb_user
+    set `Account` = #{account,jdbcType=VARCHAR},
+      `Name` = #{name,jdbcType=VARCHAR},
+      `Password` = #{password,jdbcType=VARCHAR},
+      `Company` = #{company,jdbcType=VARCHAR},
+      `Department` = #{department,jdbcType=VARCHAR},
+      `Position` = #{position,jdbcType=VARCHAR},
+      `Email` = #{email,jdbcType=VARCHAR},
+      `CellPhone` = #{cellPhone,jdbcType=VARCHAR},
+      `Phone` = #{phone,jdbcType=VARCHAR},
+      `Address` = #{address,jdbcType=VARCHAR},
+      `IsOnLine` = #{isOnLine,jdbcType=BIT},
+      `LastOnLine` = #{lastOnLine,jdbcType=TIMESTAMP},
+      `IsAdmin` = #{isAdmin,jdbcType=BIT},
+      `AllowAccessType` = #{allowAccessType,jdbcType=INTEGER},
+      `CompanyID` = #{companyID,jdbcType=INTEGER},
+      `HeadPhotoPath` = #{headPhotoPath,jdbcType=VARCHAR},
+      `WarnLevel` = #{warnLevel,jdbcType=INTEGER},
+      `UserEnable` = #{userEnable,jdbcType=BIT}
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

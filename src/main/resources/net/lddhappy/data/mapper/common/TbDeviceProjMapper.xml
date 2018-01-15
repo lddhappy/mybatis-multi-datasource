@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lddhappy.data.mapper.common.TbDeviceProjMapper">
+    <resultMap id="BaseResultMap" type="net.lddhappy.data.model.common.TbDeviceProj">
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="DeviceName" jdbcType="VARCHAR" property="deviceName"/>
+        <result column="ProjectId" jdbcType="INTEGER" property="projectId"/>
+        <result column="DeviceType" jdbcType="INTEGER" property="deviceType"/>
+        <result column="Note" jdbcType="VARCHAR" property="note"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    `ID`, `DeviceName`, `ProjectId`, `DeviceType`, `Note`
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_device_proj
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_device_proj
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="net.lddhappy.data.model.common.TbDeviceProj">
+    insert into tb_device_proj (`ID`, `DeviceName`, `ProjectId`, 
+      `DeviceType`, `Note`)
+    values (#{ID,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER}, 
+      #{deviceType,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+  </insert>
+
+    <insert id="insertSelectKey" parameterType="net.lddhappy.data.model.common.TbDeviceProj">
+        <selectKey keyProperty="ID" keyColumn="ID" resultType="int" order="BEFORE">
+            select FLOOR( 10000 + RAND() *1000000000)
+        </selectKey>
+        insert into tb_device_proj (`ID`, `DeviceName`, `ProjectId`,
+        `DeviceType`, `Note`)
+        values (#{ID,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, #{projectId,jdbcType=INTEGER},
+        #{deviceType,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertBatch" parameterType="net.lddhappy.data.model.common.TbDeviceProj"
+            useGeneratedKeys="true" keyColumn="ID" keyProperty="ID">
+        insert into tb_device_proj ( `DeviceName`, `ProjectId`,
+        `DeviceType`, `Note`) values
+        <foreach item="item" collection="list" separator=",">
+            ( #{item.deviceName,jdbcType=VARCHAR}, #{item.projectId,jdbcType=INTEGER},
+            #{item.deviceType,jdbcType=INTEGER}, #{item.note,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="insertSelective" parameterType="net.lddhappy.data.model.common.TbDeviceProj">
+        insert into tb_device_proj
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                `ID`,
+            </if>
+            <if test="deviceName != null">
+                `DeviceName`,
+            </if>
+            <if test="projectId != null">
+                `ProjectId`,
+            </if>
+            <if test="deviceType != null">
+                `DeviceType`,
+            </if>
+            <if test="note != null">
+                `Note`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                #{ID,jdbcType=INTEGER},
+            </if>
+            <if test="deviceName != null">
+                #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null">
+                #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceType != null">
+                #{deviceType,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.common.TbDeviceProj">
+        update tb_device_proj
+        <set>
+            <if test="deviceName != null">
+                `DeviceName` = #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null">
+                `ProjectId` = #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceType != null">
+                `DeviceType` = #{deviceType,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                `Note` = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.common.TbDeviceProj">
+    update tb_device_proj
+    set `DeviceName` = #{deviceName,jdbcType=VARCHAR},
+      `ProjectId` = #{projectId,jdbcType=INTEGER},
+      `DeviceType` = #{deviceType,jdbcType=INTEGER},
+      `Note` = #{note,jdbcType=VARCHAR}
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>
