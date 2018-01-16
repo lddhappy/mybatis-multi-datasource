@@ -22,6 +22,29 @@
         <result column="WarnLevel" jdbcType="INTEGER" property="warnLevel"/>
         <result column="UserEnable" jdbcType="BIT" property="userEnable"/>
     </resultMap>
+
+
+    <resultMap id="userReadOnlyResultMap" type="net.lddhappy.data.model.common.TbUserReadOnly">
+        <constructor>
+            <idArg column="ID" jdbcType="INTEGER" javaType="int"/>
+            <arg column="Account" jdbcType="VARCHAR" javaType="string"/>
+            <arg column="Name" jdbcType="VARCHAR" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="userCompanyResultMap" type="net.lddhappy.data.model.common.TbUserWithCompany">
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="Account" jdbcType="VARCHAR" property="account"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <association property="company" javaType="net.lddhappy.data.model.common.TbCompany"
+                     resultMap="companyResultMap"/>
+    </resultMap>
+
+    <resultMap id="companyResultMap" type="net.lddhappy.data.model.common.TbCompany">
+        <id column="CompanyID" jdbcType="INTEGER" property="ID"/>
+        <result column="CompanyName" jdbcType="VARCHAR" property="companyName"/>
+    </resultMap>
+
     <sql id="Base_Column_List">
     `ID`, `Account`, `Name`, `Password`, `Company`, `Department`, `Position`, `Email`, 
     `CellPhone`, `Phone`, `Address`, `IsOnLine`, `LastOnLine`, `IsAdmin`, `AllowAccessType`, 
@@ -40,8 +63,21 @@
         from tb_user
     </select>
 
+    <select id="selectReadOnly" resultMap="userReadOnlyResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_user
+    </select>
+
+
+    <select id="selectUserCompany" resultMap="userCompanyResultMap">
+      select u.ID,u.Account,u.Name,c.ID as
+      CompanyID,c.CompanyName
+      from tb_user as u left join tb_company as c on u.companyid=c.id
+    </select>
+
     <select id="selectAllReturnCursor" resultMap="BaseResultMap" statementType="PREPARED" resultSetType="FORWARD_ONLY"
-    resultOrdered="true">
+            resultOrdered="true">
         select
         <include refid="Base_Column_List"/>
         from tb_user

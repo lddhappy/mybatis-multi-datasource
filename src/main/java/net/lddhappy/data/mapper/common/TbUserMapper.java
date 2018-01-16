@@ -1,6 +1,8 @@
 package net.lddhappy.data.mapper.common;
 
 import net.lddhappy.data.model.common.TbUser;
+import net.lddhappy.data.model.common.TbUserReadOnly;
+import net.lddhappy.data.model.common.TbUserWithCompany;
 import net.lddhappy.data.model.parameter.TbUserQueryParameter;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.cursor.Cursor;
@@ -18,6 +20,10 @@ public interface TbUserMapper {
     TbUser selectByPrimaryKey(Integer ID);
 
     List<TbUser> selectAll();
+
+    List<TbUserReadOnly> selectReadOnly();
+
+    List<TbUserWithCompany> selectUserCompany();
 
     Cursor<TbUser> selectAllReturnCursor();
 

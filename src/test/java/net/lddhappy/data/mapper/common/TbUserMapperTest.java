@@ -2,6 +2,8 @@ package net.lddhappy.data.mapper.common;
 
 import net.lddhappy.MybatisMultiDatsourceApplication;
 import net.lddhappy.data.model.common.TbUser;
+import net.lddhappy.data.model.common.TbUserReadOnly;
+import net.lddhappy.data.model.common.TbUserWithCompany;
 import net.lddhappy.data.model.parameter.TbUserQueryParameter;
 import org.apache.ibatis.cursor.Cursor;
 import org.junit.Test;
@@ -69,21 +71,29 @@ public class TbUserMapperTest {
 
     @Test
     public void cursorItemReaderTest() {
-        try
-        {
+        try {
             userMyBatisCursorItemReader.open(new ExecutionContext());
             TbUser user;
-            while ((user=userMyBatisCursorItemReader.read())!=null)
-            {
+            while ((user = userMyBatisCursorItemReader.read()) != null) {
                 System.out.println(user);
             }
-        }catch (Exception ex)
-        {
+        } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
             userMyBatisCursorItemReader.close();
         }
+    }
+
+    @Test
+    public void selectReadOnlyTest() {
+        List<TbUserReadOnly> readOnlies = userMapper.selectReadOnly();
+        readOnlies.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectUserCompanyTest() {
+        List<TbUserWithCompany> userWithCompanies = userMapper.selectUserCompany();
+        assert userWithCompanies.size() > 0;
     }
 }
 
