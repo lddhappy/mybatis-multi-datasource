@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.lddhappy.data.mapper.proj.TbSensorAttriMapper">
+    <resultMap id="BaseResultMap" type="net.lddhappy.data.model.proj.TbSensorAttri">
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="Alias" jdbcType="VARCHAR" property="alias"/>
+        <result column="Location" jdbcType="VARCHAR" property="location"/>
+        <result column="Status" jdbcType="INTEGER" property="status"/>
+        <result column="GroupID" jdbcType="INTEGER" property="groupID"/>
+        <result column="SensorType" jdbcType="INTEGER" property="sensorType"/>
+        <result column="IsValid" jdbcType="BIT" property="isValid"/>
+        <result column="WarnNoData" jdbcType="BIT" property="warnNoData"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.lddhappy.data.model.proj.TbSensorAttri">
+        <result column="Note" jdbcType="LONGVARCHAR" property="note"/>
+        <result column="ExValues" jdbcType="LONGVARCHAR" property="exValues"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    `ID`, `Name`, `Alias`, `Location`, `Status`, `GroupID`, `SensorType`, `IsValid`, 
+    `WarnNoData`
+  </sql>
+    <sql id="Blob_Column_List">
+    `Note`, `ExValues`
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_sensor_attri
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectAll"  resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_sensor_attri
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_sensor_attri
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="net.lddhappy.data.model.proj.TbSensorAttri">
+    insert into tb_sensor_attri (`ID`, `Name`, `Alias`, 
+      `Location`, `Status`, `GroupID`, 
+      `SensorType`, `IsValid`, `WarnNoData`, 
+      `Note`, `ExValues`)
+    values (#{ID,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{groupID,jdbcType=INTEGER}, 
+      #{sensorType,jdbcType=INTEGER}, #{isValid,jdbcType=BIT}, #{warnNoData,jdbcType=BIT}, 
+      #{note,jdbcType=LONGVARCHAR}, #{exValues,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="net.lddhappy.data.model.proj.TbSensorAttri">
+        insert into tb_sensor_attri
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                `ID`,
+            </if>
+            <if test="name != null">
+                `Name`,
+            </if>
+            <if test="alias != null">
+                `Alias`,
+            </if>
+            <if test="location != null">
+                `Location`,
+            </if>
+            <if test="status != null">
+                `Status`,
+            </if>
+            <if test="groupID != null">
+                `GroupID`,
+            </if>
+            <if test="sensorType != null">
+                `SensorType`,
+            </if>
+            <if test="isValid != null">
+                `IsValid`,
+            </if>
+            <if test="warnNoData != null">
+                `WarnNoData`,
+            </if>
+            <if test="note != null">
+                `Note`,
+            </if>
+            <if test="exValues != null">
+                `ExValues`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                #{ID,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="alias != null">
+                #{alias,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="groupID != null">
+                #{groupID,jdbcType=INTEGER},
+            </if>
+            <if test="sensorType != null">
+                #{sensorType,jdbcType=INTEGER},
+            </if>
+            <if test="isValid != null">
+                #{isValid,jdbcType=BIT},
+            </if>
+            <if test="warnNoData != null">
+                #{warnNoData,jdbcType=BIT},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exValues != null">
+                #{exValues,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.proj.TbSensorAttri">
+        update tb_sensor_attri
+        <set>
+            <if test="name != null">
+                `Name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="alias != null">
+                `Alias` = #{alias,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                `Location` = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                `Status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="groupID != null">
+                `GroupID` = #{groupID,jdbcType=INTEGER},
+            </if>
+            <if test="sensorType != null">
+                `SensorType` = #{sensorType,jdbcType=INTEGER},
+            </if>
+            <if test="isValid != null">
+                `IsValid` = #{isValid,jdbcType=BIT},
+            </if>
+            <if test="warnNoData != null">
+                `WarnNoData` = #{warnNoData,jdbcType=BIT},
+            </if>
+            <if test="note != null">
+                `Note` = #{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exValues != null">
+                `ExValues` = #{exValues,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.lddhappy.data.model.proj.TbSensorAttri">
+    update tb_sensor_attri
+    set `Name` = #{name,jdbcType=VARCHAR},
+      `Alias` = #{alias,jdbcType=VARCHAR},
+      `Location` = #{location,jdbcType=VARCHAR},
+      `Status` = #{status,jdbcType=INTEGER},
+      `GroupID` = #{groupID,jdbcType=INTEGER},
+      `SensorType` = #{sensorType,jdbcType=INTEGER},
+      `IsValid` = #{isValid,jdbcType=BIT},
+      `WarnNoData` = #{warnNoData,jdbcType=BIT},
+      `Note` = #{note,jdbcType=LONGVARCHAR},
+      `ExValues` = #{exValues,jdbcType=LONGVARCHAR}
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.proj.TbSensorAttri">
+    update tb_sensor_attri
+    set `Name` = #{name,jdbcType=VARCHAR},
+      `Alias` = #{alias,jdbcType=VARCHAR},
+      `Location` = #{location,jdbcType=VARCHAR},
+      `Status` = #{status,jdbcType=INTEGER},
+      `GroupID` = #{groupID,jdbcType=INTEGER},
+      `SensorType` = #{sensorType,jdbcType=INTEGER},
+      `IsValid` = #{isValid,jdbcType=BIT},
+      `WarnNoData` = #{warnNoData,jdbcType=BIT}
+    where `ID` = #{ID,jdbcType=INTEGER}
+  </update>
+</mapper>

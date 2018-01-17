@@ -1,6 +1,7 @@
 package net.lddhappy.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import net.lddhappy.util.DbUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.batch.MyBatisCursorItemReader;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -20,25 +22,11 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class CommonDbBean {
+    @Primary
     @Bean("commonDbDataSource")
     public DataSource commonDbDataSource(@Autowired CommonDbProperties commonDbProperties) {
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(commonDbProperties.getDriver());
-        dataSource.setUrl(commonDbProperties.getUrl());
-        dataSource.setUsername(commonDbProperties.getUid());
-        dataSource.setPassword(commonDbProperties.getPwd());
-
-        dataSource.setInitialSize(3);
-        dataSource.setMaxActive(100);
-        dataSource.setMinIdle(3);
-        dataSource.setValidationQuery("select 1");
-        dataSource.setTestOnBorrow(false);
-        dataSource.setTestOnReturn(false);
-        dataSource.setTestWhileIdle(true);
-        dataSource.setMaxWait(60000);
-        dataSource.setTimeBetweenEvictionRunsMillis(60000);
-        dataSource.setMinEvictableIdleTimeMillis(30000);
-        return dataSource;
+        return DbUtil.initDruidDataSource(commonDbProperties.getDriver()
+                , commonDbProperties.getUrl(), commonDbProperties.getUid(), commonDbProperties.getPwd());
     }
 
     @Bean("commonDataSourceTransactionManager")

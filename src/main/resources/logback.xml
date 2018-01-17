@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <configuration debug="true">
-    <property name="LOG_PATH" value="/home/ldd/logs" />
+    <property name="LOG_PATH" value="/home/ldd/logs"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
@@ -12,7 +12,7 @@
         <file>${LOG_PATH}/mybatis-multi-datasource.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>network.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>mybatis-multi-datasource.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- keep 30 days' worth of history capped at 3GB total size -->
             <maxHistory>30</maxHistory>
             <totalSizeCap>3GB</totalSizeCap>
@@ -22,10 +22,13 @@
         </encoder>
     </appender>
 
-    <logger name="net.lddhappy.data.mapper.common" level="debug" />
+    <!--display sql under package-->
+    <!--<logger name="net.lddhappy.data.mapper.common" level="debug" />-->
+    <!--display sql just for method-->
+    <logger name="net.lddhappy.data.mapper.common.TbUserMapper.selectUserCompany" level="debug"/>
 
     <root level="info">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
         <appender-ref ref="rollingFileAppender"/>
     </root>
 </configuration>

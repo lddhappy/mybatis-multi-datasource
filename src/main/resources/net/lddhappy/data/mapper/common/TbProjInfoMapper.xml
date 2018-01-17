@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.lddhappy.data.mapper.common.TbProjInfoMapper">
-  <resultMap id="BaseResultMap" type="net.lddhappy.data.model.common.TbProjInfo">
-    <id column="ID" jdbcType="INTEGER" property="ID" />
-    <result column="Name" jdbcType="VARCHAR" property="name" />
-    <result column="ConnectString" jdbcType="VARCHAR" property="connectString" />
-    <result column="IsValid" jdbcType="BIT" property="isValid" />
-    <result column="RegionID" jdbcType="INTEGER" property="regionID" />
-    <result column="CenterPoint" jdbcType="VARCHAR" property="centerPoint" />
-    <result column="BuildTime" jdbcType="TIMESTAMP" property="buildTime" />
-    <result column="Location" jdbcType="VARCHAR" property="location" />
-    <result column="Type" jdbcType="VARCHAR" property="type" />
-    <result column="Grade" jdbcType="VARCHAR" property="grade" />
-    <result column="LevelID" jdbcType="INTEGER" property="levelID" />
-    <result column="ProjTypeID" jdbcType="INTEGER" property="projTypeID" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.lddhappy.data.model.common.TbProjInfo">
-    <result column="Note" jdbcType="LONGVARCHAR" property="note" />
-    <result column="Boundary" jdbcType="LONGVARCHAR" property="boundary" />
-    <result column="Status" jdbcType="LONGVARCHAR" property="status" />
-    <result column="ExValues" jdbcType="LONGVARCHAR" property="exValues" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="net.lddhappy.data.model.common.TbProjInfo">
+        <id column="ID" jdbcType="INTEGER" property="ID"/>
+        <result column="Name" jdbcType="VARCHAR" property="name"/>
+        <result column="ConnectString" jdbcType="VARCHAR" property="connectString"/>
+        <result column="IsValid" jdbcType="BIT" property="isValid"/>
+        <result column="RegionID" jdbcType="INTEGER" property="regionID"/>
+        <result column="CenterPoint" jdbcType="VARCHAR" property="centerPoint"/>
+        <result column="BuildTime" jdbcType="TIMESTAMP" property="buildTime"/>
+        <result column="Location" jdbcType="VARCHAR" property="location"/>
+        <result column="Type" jdbcType="VARCHAR" property="type"/>
+        <result column="Grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="LevelID" jdbcType="INTEGER" property="levelID"/>
+        <result column="ProjTypeID" jdbcType="INTEGER" property="projTypeID"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.lddhappy.data.model.common.TbProjInfo">
+        <result column="Note" jdbcType="LONGVARCHAR" property="note"/>
+        <result column="Boundary" jdbcType="LONGVARCHAR" property="boundary"/>
+        <result column="Status" jdbcType="LONGVARCHAR" property="status"/>
+        <result column="ExValues" jdbcType="LONGVARCHAR" property="exValues"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     `ID`, `Name`, `ConnectString`, `IsValid`, `RegionID`, `CenterPoint`, `BuildTime`, 
     `Location`, `Type`, `Grade`, `LevelID`, `ProjTypeID`
   </sql>
-  <sql id="Blob_Column_List">
+    <sql id="Blob_Column_List">
     `Note`, `Boundary`, `Status`, `ExValues`
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tb_proj_info
-    where `ID` = #{ID,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_proj_info
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectAll" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from tb_proj_info
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_proj_info
     where `ID` = #{ID,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="net.lddhappy.data.model.common.TbProjInfo">
+    <insert id="insert" parameterType="net.lddhappy.data.model.common.TbProjInfo">
     insert into tb_proj_info (`ID`, `Name`, `ConnectString`, 
       `IsValid`, `RegionID`, `CenterPoint`, 
       `BuildTime`, `Location`, `Type`, 
@@ -54,161 +65,161 @@
       #{note,jdbcType=LONGVARCHAR}, #{boundary,jdbcType=LONGVARCHAR}, #{status,jdbcType=LONGVARCHAR}, 
       #{exValues,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="net.lddhappy.data.model.common.TbProjInfo">
-    insert into tb_proj_info
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ID != null">
-        `ID`,
-      </if>
-      <if test="name != null">
-        `Name`,
-      </if>
-      <if test="connectString != null">
-        `ConnectString`,
-      </if>
-      <if test="isValid != null">
-        `IsValid`,
-      </if>
-      <if test="regionID != null">
-        `RegionID`,
-      </if>
-      <if test="centerPoint != null">
-        `CenterPoint`,
-      </if>
-      <if test="buildTime != null">
-        `BuildTime`,
-      </if>
-      <if test="location != null">
-        `Location`,
-      </if>
-      <if test="type != null">
-        `Type`,
-      </if>
-      <if test="grade != null">
-        `Grade`,
-      </if>
-      <if test="levelID != null">
-        `LevelID`,
-      </if>
-      <if test="projTypeID != null">
-        `ProjTypeID`,
-      </if>
-      <if test="note != null">
-        `Note`,
-      </if>
-      <if test="boundary != null">
-        `Boundary`,
-      </if>
-      <if test="status != null">
-        `Status`,
-      </if>
-      <if test="exValues != null">
-        `ExValues`,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ID != null">
-        #{ID,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="connectString != null">
-        #{connectString,jdbcType=VARCHAR},
-      </if>
-      <if test="isValid != null">
-        #{isValid,jdbcType=BIT},
-      </if>
-      <if test="regionID != null">
-        #{regionID,jdbcType=INTEGER},
-      </if>
-      <if test="centerPoint != null">
-        #{centerPoint,jdbcType=VARCHAR},
-      </if>
-      <if test="buildTime != null">
-        #{buildTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="levelID != null">
-        #{levelID,jdbcType=INTEGER},
-      </if>
-      <if test="projTypeID != null">
-        #{projTypeID,jdbcType=INTEGER},
-      </if>
-      <if test="note != null">
-        #{note,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="boundary != null">
-        #{boundary,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="exValues != null">
-        #{exValues,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.common.TbProjInfo">
-    update tb_proj_info
-    <set>
-      <if test="name != null">
-        `Name` = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="connectString != null">
-        `ConnectString` = #{connectString,jdbcType=VARCHAR},
-      </if>
-      <if test="isValid != null">
-        `IsValid` = #{isValid,jdbcType=BIT},
-      </if>
-      <if test="regionID != null">
-        `RegionID` = #{regionID,jdbcType=INTEGER},
-      </if>
-      <if test="centerPoint != null">
-        `CenterPoint` = #{centerPoint,jdbcType=VARCHAR},
-      </if>
-      <if test="buildTime != null">
-        `BuildTime` = #{buildTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="location != null">
-        `Location` = #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="type != null">
-        `Type` = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        `Grade` = #{grade,jdbcType=VARCHAR},
-      </if>
-      <if test="levelID != null">
-        `LevelID` = #{levelID,jdbcType=INTEGER},
-      </if>
-      <if test="projTypeID != null">
-        `ProjTypeID` = #{projTypeID,jdbcType=INTEGER},
-      </if>
-      <if test="note != null">
-        `Note` = #{note,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="boundary != null">
-        `Boundary` = #{boundary,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="status != null">
-        `Status` = #{status,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="exValues != null">
-        `ExValues` = #{exValues,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where `ID` = #{ID,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.lddhappy.data.model.common.TbProjInfo">
+    <insert id="insertSelective" parameterType="net.lddhappy.data.model.common.TbProjInfo">
+        insert into tb_proj_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                `ID`,
+            </if>
+            <if test="name != null">
+                `Name`,
+            </if>
+            <if test="connectString != null">
+                `ConnectString`,
+            </if>
+            <if test="isValid != null">
+                `IsValid`,
+            </if>
+            <if test="regionID != null">
+                `RegionID`,
+            </if>
+            <if test="centerPoint != null">
+                `CenterPoint`,
+            </if>
+            <if test="buildTime != null">
+                `BuildTime`,
+            </if>
+            <if test="location != null">
+                `Location`,
+            </if>
+            <if test="type != null">
+                `Type`,
+            </if>
+            <if test="grade != null">
+                `Grade`,
+            </if>
+            <if test="levelID != null">
+                `LevelID`,
+            </if>
+            <if test="projTypeID != null">
+                `ProjTypeID`,
+            </if>
+            <if test="note != null">
+                `Note`,
+            </if>
+            <if test="boundary != null">
+                `Boundary`,
+            </if>
+            <if test="status != null">
+                `Status`,
+            </if>
+            <if test="exValues != null">
+                `ExValues`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ID != null">
+                #{ID,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="connectString != null">
+                #{connectString,jdbcType=VARCHAR},
+            </if>
+            <if test="isValid != null">
+                #{isValid,jdbcType=BIT},
+            </if>
+            <if test="regionID != null">
+                #{regionID,jdbcType=INTEGER},
+            </if>
+            <if test="centerPoint != null">
+                #{centerPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="buildTime != null">
+                #{buildTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="levelID != null">
+                #{levelID,jdbcType=INTEGER},
+            </if>
+            <if test="projTypeID != null">
+                #{projTypeID,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="boundary != null">
+                #{boundary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exValues != null">
+                #{exValues,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.lddhappy.data.model.common.TbProjInfo">
+        update tb_proj_info
+        <set>
+            <if test="name != null">
+                `Name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="connectString != null">
+                `ConnectString` = #{connectString,jdbcType=VARCHAR},
+            </if>
+            <if test="isValid != null">
+                `IsValid` = #{isValid,jdbcType=BIT},
+            </if>
+            <if test="regionID != null">
+                `RegionID` = #{regionID,jdbcType=INTEGER},
+            </if>
+            <if test="centerPoint != null">
+                `CenterPoint` = #{centerPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="buildTime != null">
+                `BuildTime` = #{buildTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="location != null">
+                `Location` = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                `Type` = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                `Grade` = #{grade,jdbcType=VARCHAR},
+            </if>
+            <if test="levelID != null">
+                `LevelID` = #{levelID,jdbcType=INTEGER},
+            </if>
+            <if test="projTypeID != null">
+                `ProjTypeID` = #{projTypeID,jdbcType=INTEGER},
+            </if>
+            <if test="note != null">
+                `Note` = #{note,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="boundary != null">
+                `Boundary` = #{boundary,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="status != null">
+                `Status` = #{status,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="exValues != null">
+                `ExValues` = #{exValues,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where `ID` = #{ID,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.lddhappy.data.model.common.TbProjInfo">
     update tb_proj_info
     set `Name` = #{name,jdbcType=VARCHAR},
       `ConnectString` = #{connectString,jdbcType=VARCHAR},
@@ -227,7 +238,7 @@
       `ExValues` = #{exValues,jdbcType=LONGVARCHAR}
     where `ID` = #{ID,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.common.TbProjInfo">
+    <update id="updateByPrimaryKey" parameterType="net.lddhappy.data.model.common.TbProjInfo">
     update tb_proj_info
     set `Name` = #{name,jdbcType=VARCHAR},
       `ConnectString` = #{connectString,jdbcType=VARCHAR},
